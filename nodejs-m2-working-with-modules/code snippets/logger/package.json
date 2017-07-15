@@ -1,0 +1,14 @@
+{
+  "name": "zeo-logger",
+  "version": "1.0.0",
+  "description": "example user defined module for node js course by zeolearn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "baluragala",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.0.1"
+  }
+}
