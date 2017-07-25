@@ -1,0 +1,14 @@
+Create an express application that provides cloud logging functionality.
+
+Application should have following features
+1. List all logs in JSON format available at endpoint /logs/json (hint res.json() method)
+2. List all logs in html table format available at endpoint /logs/html (hint res.send() method)
+3. Should be able to create logs and format should be below, all fields are mandatory
+any missing field should throw 403 error with response as "Please ensure type, log_datetime and text fields are part of payload"
+
+Sample log format
+ {
+  "type": "error",
+  "log_datetime": "2017-10-12T13:45:12",
+  "text": "Get all logs method is invoked"
+ }
