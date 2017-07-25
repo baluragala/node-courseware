@@ -1,0 +1,11 @@
+Extend the express-retail-cms application for following use cases
+
+Use case:
+--------
+1. Update product list table to provide link to navigate to
+edit the product on product id column
+2. Code new get method with route path '/:id' which will render
+update.jade with product of passed parameter
+3. Provide save functionality to accept the updated changes. Same object
+must be updated and new one should not be created.
+4. Post successful update redirect user to products list

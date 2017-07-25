@@ -1,0 +1,25 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.row-heading {
+    font-weight: 900;
+    text-align: center;
+    color: #00B7FF;
+}
+
+.header {
+    color: #00B7FF;
+    font-size: 2em;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.out-of-stock {
+    background-color: red;
+}

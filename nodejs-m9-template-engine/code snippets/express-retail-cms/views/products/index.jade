@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+    h1.header Products
+    table.table.table-bordered
+        tr.row-heading
+            td ID
+            td TITLE
+            td PRICE
+            td STOCK
+        each product in products
+            tr
+                td= product.id
+                td= product.title
+                td= product.price
+                if product.stock == 0
+                    td.out-of-stock= product.stock
+                else
+                    td= product.stock
