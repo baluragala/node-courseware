@@ -1,0 +1,1 @@
+Develop an real time inventory update application powered by express and socket.io
