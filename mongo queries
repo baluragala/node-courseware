@@ -1,0 +1,93 @@
+Count of all documents in a collection
+db.restaurants.count()
+
+Read all documents 
+db.restaurants.find()
+
+filter documents
+db.restaurants.find( { "borough": "Manhattan" } )
+db.restaurants.find( { "address.zipcode": "10075" } ) // nested field
+db.restaurants.find( { "grades.grade": "B" } ) //array field
+
+
+db.restaurants.find( {} , {"name":1, "cuisine":1, "_id":0})
+
+greater than operator
+db.restaurants.find( { "grades.score": { $gt: 30 } } )
+
+less than operator
+db.restaurants.find( { "grades.score": { $lt: 10 } } )
+
+
+AND
+db.restaurants.find( { "cuisine": "Italian", "address.zipcode": "10075" } )
+
+OR
+db.restaurants.find(
+   { $or: [ { "cuisine": "Italian" }, { "address.zipcode": "10075" } ] }
+)
+
+SORT
+db.restaurants.find().sort( { "borough": 1, "address.zipcode": 1 } )
+
+
+Switch to new database ( for clarity and ease )
+
+use food
+
+Insert
+------
+db.restaurant.insertOne( { "name" : "Newyork Tavern", "Borough" : "Queens" } );
+
+db.restaurant.insertMany([
+{ "_id" : 1, "name" : "Central Perk Cafe", "Borough" : "Manhattan" },
+{ "_id" : 2, "name" : "Rock A Feller Bar and Grill", "Borough" : "Queens", "violations" : 2 },
+{ "_id" : 3, "name" : "Empire State Pub", "Borough" : "Brooklyn", "violations" : 0 }
+])
+
+
+Update
+------
+
+db.restaurant.updateOne(
+      { "name" : "Central Perk Cafe" },
+      { $set: { "violations" : 3 } }
+   );
+
+db.restaurant.updateOne(
+      { "name" : "Pizza Rat's Pizzaria" },
+      { $set: {"_id" : 4, "violations" : 7, "borough" : "Manhattan" } },
+      { upsert: true }
+   );
+
+db.restaurant.updateMany(
+  { violations: { $gt: 4 } },
+  { $set: { "Review" : true } }
+);
+
+db.restaurant.updateOne(
+   { "name" : "Pizza Rat's Pizzaria" },
+   { $inc: { "violations": 10 } }
+)
+
+Delete
+------
+db.restaurant.deleteOne( { "_id" : 1 } );
+db.restaurant.deleteMany( { "violations" : 2 } );
+
+Aggregation
+----------
+db.orders.insertMany([
+{ _id: 1, cust_id: "abc1", ord_date: ISODate("2012-11-02T17:04:11.102Z"), status: "A", amount: 50 },
+{ _id: 2, cust_id: "xyz1", ord_date: ISODate("2013-10-01T17:04:11.102Z"), status: "A", amount: 100 },
+{ _id: 3, cust_id: "xyz1", ord_date: ISODate("2013-10-12T17:04:11.102Z"), status: "D", amount: 25 },
+{ _id: 4, cust_id: "xyz1", ord_date: ISODate("2013-10-11T17:04:11.102Z"), status: "D", amount: 125 },
+{ _id: 5, cust_id: "abc1", ord_date: ISODate("2013-11-12T17:04:11.102Z"), status: "A", amount: 25 }])
+
+db.orders.aggregate(
+	[
+		{ $match: { status: "A" } },
+		{ $group: { _id: "$cust_id", total: { $sum: "$amount" } } },
+		{ $sort: { total: -1 } }
+	]
+)
