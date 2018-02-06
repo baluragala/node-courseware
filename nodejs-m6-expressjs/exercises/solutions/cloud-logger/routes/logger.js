@@ -1,4 +1,4 @@
-let express = require('express');
+let express = require("express");
 let router = express.Router();
 
 /*
@@ -12,22 +12,31 @@ let router = express.Router();
 let logs = [];
 
 // GET all logs.
-router.get('/json', function (req, res, next) {
+router.get("/json", function(req, res, next) {
   res.json(logs);
 });
 
-router.get('/html', function (req, res, next) {
-  let rows = logs.map(log => `<tr><td>${log.type}</td><td>${log.log_datetime}</td><td>${log.text}</td></tr>`);
-  res.send(`<table>${rows.join('')}</table>`);
+router.get("/html", function(req, res, next) {
+  let rows = logs.map(
+    log =>
+      `<tr><td>${log.type}</td><td>${log.log_datetime}</td><td>${
+        log.text
+      }</td></tr>`
+  );
+  res.send(`<table>${rows.join("")}</table>`);
 });
 
 // POST log (create)
-router.post('/', function (req, res, next) {
+router.post("/", function(req, res, next) {
   if (req.body.type && req.body.log_datetime && req.body.text) {
     logs.push(req.body);
     res.json(req.body);
   } else {
-    res.status(403).send('Please ensure type, log_datetime and text fields are part of payload')
+    res
+      .status(400)
+      .send(
+        "Please ensure type, log_datetime and text fields are part of payload"
+      );
   }
 });
 
